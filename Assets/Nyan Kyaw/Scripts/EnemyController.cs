@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+namespace NyanKyaw
 {
-    public GameObject player;
-    private NavMeshAgent navMeshAgent;
-
-    void Start()
+    public class EnemyController : MonoBehaviour
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
+        public GameObject player;
+        private NavMeshAgent navMeshAgent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        MoveEnemy();
-    }
+        void Start()
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
 
-    public void MoveEnemy()
-    {
-        navMeshAgent.SetDestination(player.transform.position);
+        // Update is called once per frame
+        void Update()
+        {
+            MoveEnemy();
+        }
+
+        public void MoveEnemy()
+        {
+            navMeshAgent.SetDestination(player.transform.position);
+        }
     }
 }

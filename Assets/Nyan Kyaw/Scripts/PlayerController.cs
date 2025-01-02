@@ -1,59 +1,61 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+namespace NyanKyaw
 {
-    [SerializeField] float playerSpeed = 50f;
-
-    private Vector3 playerDirection;
-
-    private Rigidbody rb;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class PlayerController : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        [SerializeField] float playerSpeed = 50f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        private Vector3 playerDirection;
 
-    void FixedUpdate()
-    {
-        MovePlayer();
-    }
+        private Rigidbody rb;
 
-    public void MovePlayer()
-    {
-        rb.AddForce(playerDirection * playerSpeed);
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Coin"))
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
         {
-            other.gameObject.SetActive(false);
+            rb = GetComponent<Rigidbody>();
         }
-    }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision detected");
-        if (collision.gameObject.CompareTag("Enemy"))
+        // Update is called once per frame
+        void Update()
         {
-            Destroy(gameObject);
+            
         }
-    }
 
-    #region Input System
-    public void OnMove(InputValue movementValue)
-    {
-        Vector2 inputVector = movementValue.Get<Vector2>();
-        playerDirection = new Vector3(inputVector.x, 0, inputVector.y);
-    }
+        void FixedUpdate()
+        {
+            MovePlayer();
+        }
 
-    #endregion
+        public void MovePlayer()
+        {
+            rb.AddForce(playerDirection * playerSpeed);
+        }
+
+        public void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Coin"))
+            {
+                other.gameObject.SetActive(false);
+            }
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        #region Input System
+        public void OnMove(InputValue movementValue)
+        {
+            Vector2 inputVector = movementValue.Get<Vector2>();
+            playerDirection = new Vector3(inputVector.x, 0, inputVector.y);
+        }
+
+        #endregion
+    }
 }
